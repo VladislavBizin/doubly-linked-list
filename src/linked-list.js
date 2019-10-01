@@ -13,20 +13,20 @@ class LinkedList {
             this._head = node;
             this._tail = node;
         } else {
-            node.prev = this._tail;
-            this._tail.next = node;
+            node["prev"] = this._tail;
+            this._tail["next"] = node;
             this._tail = node
         }
-        this.length++;
+        this.length ++;
         return node;
     }
 
     head() {
-        return this._head.data;
+        return this._head["data"];
     }
 
     tail() {
-        return this._tail.data;
+        return this._tail["data"];
     }
 
     at(index) {
@@ -42,15 +42,15 @@ class LinkedList {
         const search = (tail, currentIndex = 0) => {
             if (index === 0) {
                 this._head["prev"] = node;
-                node.next = this._head;
+                node["next"] = this._head;
                 this._head = node;
                 return this._head;
             } else if (currentIndex === index) {
-                node.prev = tail["prev"];
+                node["prev"] = tail["prev"];
                 tail["prev"]["next"] = node;
-                node.next = tail;
+                node["next"] = tail;
                 tail["prev"] = node;
-                this.length++;
+                this.length ++;
                 return this._head;
             } else {
                 return search(tail["next"], currentIndex + 1)
@@ -72,26 +72,26 @@ class LinkedList {
 
     deleteAt(index) {
         let current = this._head;
-        let counter = 1;
+        let count = 1;
         if( index === 0 ) {
-            this._head = this._head.next;
-            this._head.prev = null;
+            this._head = this._head["next"];
+            this._head["prev"] = null;
             return this._head;
         } else {
             while( current ) {
-                current = current.next;
+                current = current["next"];
                 if ( current === this._tail ) {
-                    this._tail = this._tail.prev;
-                    this._tail.next = null;
+                    this._tail = this._tail["prev"];
+                    this._tail["next"] = null;
                     this.length -=1;
                     return this._head;
-                } else if( counter === index ) {
-                    current.prev.next = current.next;
-                    current.next.prev = current.prev;
+                } else if( count === index ) {
+                    current["prev"]["next"] = current["next"];
+                    current["next"]["prev"] = current["prev"];
                     this.length -=1;
                     return current;
                 }
-                counter++;
+                count++;
             }
         }
     }
